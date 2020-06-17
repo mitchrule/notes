@@ -3,18 +3,27 @@ name: Pandoc
 on: push
 
 jobs:
-  convert_via_pandoc:
+  compsys:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - run: |
-          mkdir output  # create output dir
-          # this will also include README.md
-          echo "::set-env name=FILELIST::$(printf '"%s" ' *.md)"
-      - uses: docker://pandoc/latex:2.9
-        with:
-          args: --output=output/result.pdf ${{ env.FILELIST }}
+          mkdir Computer_Systems  # create output dir
+          echo "::set-env name=FILELIST::$(printf '"%s" ' Computer_Systems/*.md)"
       - uses: actions/upload-artifact@master
         with:
-          name: output
-          path: output
+          name: Computer_Systems
+          path: Computer_Systems
+
+  infosec:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          mkdir Information_Security_and_Privacy  # create output dir
+          echo "::set-env name=FILELIST::$(printf '"%s" ' Information_Security_and_Privacy/*.md)"
+      - uses: actions/upload-artifact@master
+        with:
+          name: Information_Security_and_Privacy
+          path: Information_Security_and_Privacy
+
