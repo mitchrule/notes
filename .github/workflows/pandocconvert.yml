@@ -8,21 +8,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          mkdir Computer_Systems  # create output dir
+          mkdir Computer_Systems_Output  # create output dir
           echo "::set-env name=FILELIST::$(printf '"%s" ' Computer_Systems/*.md)"
       - uses: actions/upload-artifact@master
         with:
           name: Computer_Systems
-          path: Computer_Systems
+          path: Computer_Systems_Output
 
   infosec:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - run: |
-          mkdir Information_Security_and_Privacy  # create output dir
+          mkdir Information_Security_and_Privacy_Output  # create output dir
           echo "::set-env name=FILELIST::$(printf '"%s" ' Information_Security_and_Privacy/*.md)"
       - uses: actions/upload-artifact@master
         with:
           name: Information_Security_and_Privacy
-          path: Information_Security_and_Privacy
+          path: Information_Security_and_Privacy_Output
