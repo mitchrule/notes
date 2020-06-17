@@ -1,5 +1,8 @@
-# ->Computer Systems 2020 Semester 1<-
+/begin{center}
 
-## ->Mitchell Rule<-
+# Computer Systems 2020 Semester 1
 
--><mitch.rule23@gmail.com><-
+## Mitchell Rule
+
+<mitch.rule23@gmail.com>
+/end{center}
