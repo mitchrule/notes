@@ -1,4 +1,4 @@
-## Digital Signatures and message integrity
+## Digital Signatures and Message Integrity
 
 ### Hash Functions
 
@@ -40,3 +40,37 @@ Public key cryptography is an excellent candidate for providing digital signatur
 - Whoever signed the document must have had access to Bob's private key.
   - Only Bob should have access to this key because the public key is not help in learning the private key.
   - This assumes that $K_b^-$ has not been stolen or given away by Bob.
+
+If $m$ was modified to become $m'$, the signature Bob created for $m$ will not be valid
+for $m'$. Since $K_b^+(K_b^-(m))$ does not equal $m$.
+
+Signing data by encryption is computationally expensive and often overkill to be
+encrypting the entire document. A better approach is to using hash functions.
+This same process above can be used but replacing $m$ for $H(m)$.
+Since $H(m)$ is generally smaller than $m$, less computational effort is required
+to create the digital signature.
+
+#### MACs vs. Digital Signatures
+
+- Both digital signatures and MACs start with a message/document.
+- To create a MAC out of the message we append an authentication key to the message, and then take the hash of the result.
+  - Neither public nor symmetric key encryption is involved in the creating of the MAC.
+- Digital signatures are a "heavier" technique because it requires underlying public key infrastructure with certification authorities.
+
+#### Public Key Certification
+
+Public key certification is certifying that a public key belongs to a specific entity.
+It is used in many secure networking protocols, IPsec, SSL.
+This stops people from impersonating another entity and sending a message encrypted with their own
+keys sending their public key to verify it. The receiver would think that the message was from someone
+else and the public key would decrypt it perfectly.
+
+To ensure that a public key belongs to who we think it does, we use a _certificate authority (CA)_.
+A CA's job is to validate identities and issue certificates. A CA has the following roles.
+
+1. Verify that an entity is who it says it is.
+   1. There are no mandated procedures for how this is done. One must trust the CA to a certain degree
+2. Once the CA verifies the identity of the entity, the CA creates a certificate that binds the public
+   key of that entity to the entity. The certificate contains the public key and globally unique identifying
+   information about the owner of the public key. For example a name or IP address.
+   This certificate is then digiatally signed by the CA.
