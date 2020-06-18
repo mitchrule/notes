@@ -74,3 +74,49 @@ A CA's job is to validate identities and issue certificates. A CA has the follow
    key of that entity to the entity. The certificate contains the public key and globally unique identifying
    information about the owner of the public key. For example a name or IP address.
    This certificate is then digiatally signed by the CA.
+
+### End Point Authentication
+
+End point authentication is the process of one entity proving its identity to
+another entity over a computer network. For example, a user proving its identity
+to an email server.
+An _authentication protocol_ would run before the two communicating parties run
+some other protocol, such as a reliable data transfer protocol.
+
+#### Authentication Protocol ap1.0
+
+The simplest possible authentication protocol. The sender simply sends a message
+saying who they are. There is no way for the receiver to actually know who they are.
+
+#### Authentication Protocol ap2.0
+
+The receiver could authenticate the message received by comparing the source IP
+address in the datagram to the sender's known IP address. This is obviously flawed
+as anyone could edit the source address field of a datagram.
+
+#### Authentication Protocol ap3.0
+
+This is the classic approach of using a password to prove your identity. This is
+flawed because someone could intercept a packet and discover the password.
+
+#### Authentication Protocol ap3.1
+
+This is the same as 3.0 with the addition of encrypting the password. This may seem
+more secure but it is equally as flawed. Somebody could intercept a packet and still
+pretend to be someone else by repeating the password ciphertext. When the ciphertext
+is decrypted at the receiving end it will appear to be correct.
+
+#### Authentication Protocol ap4.0
+
+Authentication protocols encounter the same issue as TCP, determining whether
+the client was live.
+
+This is solved using a _nonce_, which is a number that the protocol will only use
+once in a lifetime.
+
+1. Alice sends the message "I am Alice" to Bob.
+2. Bob chooses a nonce, $R$, and sends it to Alice.
+3. Alice encrypts the nonce using Alice and Bob's symmetric secret key and sends
+   the encrypted nonce back to Bob.
+4. Bob decrypts the encrypted nonce, if it matches the nonce he sent, he has
+   verified that Alice is live and authenticated.
