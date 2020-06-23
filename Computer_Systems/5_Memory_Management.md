@@ -189,7 +189,7 @@ At each page fault the page pointed to by the hand is examined first. If the `R`
 set to 1, the page has been used during the current tick so it is not an ideal candidate
 to remove. The `R` bit is then set to 0, and the hand advances to the next page.
 
-If the page has `R` = 0 and the age is greater than tau and the page is clean,
+If the page has `R` = 0 and the age is greater than $\tau$ and the page is clean,
 it is not in the working set and a valid copy exists on disk, the page frame is simply
 claimed and the new page is put there. If the page is dirty, it cannot be claimed
 since no valid copy is present on disk. To avoid a process switch, the write to disk
