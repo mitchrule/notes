@@ -123,17 +123,18 @@ it must be rewritten to disk to bring the disk copy up to date.
 
 ### Summary of Page Replacement Algorithms
 
-| _Algorithm_ | _Note_ |
-| Optimal | Not implementable, useful as benchmark |
-| NRU (Not recently used) | Very crude approximation of LRU |
-| FIFO | Might throw out important pages |
-| Second chance | Big improvement over FIFO |
-| Clock | Realistic |
-| LRU (Least recently used) | Excellent, but expensive |
-| NFU (Not frequently used) | Fairly crude approximation of LRU |
-| Aging | Efficient algorithm that approximates LRU well |
-| Working Set | Somewhat expensive to implement |
-| WSClock | Good, efficient algorithm |
+| _Algorithm_               | _Note_                                         |
+| ------------------------- | :--------------------------------------------- |
+| Optimal                   | Not implementable, useful as benchmark         |
+| NRU (Not recently used)   | Very crude approximation of LRU                |
+| FIFO                      | Might throw out important pages                |
+| Second chance             | Big improvement over FIFO                      |
+| Clock                     | Realistic                                      |
+| LRU (Least recently used) | Excellent, but expensive                       |
+| NFU (Not frequently used) | Fairly crude approximation of LRU              |
+| Aging                     | Efficient algorithm that approximates LRU well |
+| Working Set               | Somewhat expensive to implement                |
+| WSClock                   | Good, efficient algorithm                      |
 
 ### The Optimal Page Replacement Algorithm
 
