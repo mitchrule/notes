@@ -12,7 +12,7 @@ jobs:
           echo "::set-env name=FILELIST::$(printf '"%s" ' Computer_Systems/*.md)"
       - uses: docker://pandoc/latex:2.9
         with:
-          args: --output=Computer_Systems_Output/notes.pdf ${{ env.FILELIST }}    
+          args: --output=Computer_Systems_Output/notes.pdf ${{ env.FILELIST }} --toc
       - uses: actions/upload-artifact@master
         with:
           name: Computer_Systems
@@ -27,7 +27,7 @@ jobs:
           echo "::set-env name=FILELIST::$(printf '"%s" ' Information_Security_and_Privacy/*.md)"
       - uses: docker://pandoc/latex:2.9
         with:
-          args: --output=Information_Security_and_Privacy_Output/notes.pdf ${{ env.FILELIST }}
+          args: --output=Information_Security_and_Privacy_Output/notes.pdf ${{ env.FILELIST }} --toc
       - uses: actions/upload-artifact@master
         with:
           name: Information_Security_and_Privacy
