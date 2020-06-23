@@ -115,13 +115,27 @@ The way out of this dilemma is to make use of the TLB. If the TLB can hold all o
 heavily used pages, translation can happen just as fast as with regular page tables.
 On a TLB miss, however, the inverted page table has to be searched in software.
 
-### Page Replacement Algorithms
+## Page Replacement Algorithms
 
 When a page fault occurs, the operating system has to chhose a page to evict from
 memory to make room for the incoming page. If the page to be removed has been modified,
 it must be rewritten to disk to bring the disk copy up to date.
 
-#### The Optimal Page Replacement Algorithm
+### Summary of Page Replacement Algorithms
+
+| _Algorithm_ | _Note_ |
+| Optimal | Not implementable, useful as benchmark |
+| NRU (Not recently used) | Very crude approximation of LRU |
+| FIFO | Might throw out important pages |
+| Second chance | Big improvement over FIFO |
+| Clock | Realistic |
+| LRU (Least recently used) | Excellent, but expensive |
+| NFU (Not frequently used) | Fairly crude approximation of LRU |
+| Aging | Efficient algorithm that approximates LRU well |
+| Working Set | Somewhat expensive to implement |
+| WSClock | Good, efficient algorithm |
+
+### The Optimal Page Replacement Algorithm
 
 The best possible page replacement algorithm is impossible to actually implement.
 
@@ -134,7 +148,7 @@ pushes the next page fault as far back into the future as possible.
 In reality, this cannot be achieved because we have no way of telling how long it will
 be before a page is referenced again.
 
-#### The Not Recently Used Page Replacement Algorithm
+### The Not Recently Used Page Replacement Algorithm
 
 Each page in memory has an `R` bit and an `M` bit. Both default set to 0.
 When a page is referenced, its `R` bit is set to 1. When a page is modified,
@@ -149,4 +163,52 @@ When a page fault occurs, the operating system sorts pages into four classes:
 
 The algorithm removes a page at random from the lowest numbered non-empty class.
 
-#### The Least Recently Used (LRU) Page Replacement Algorithm
+### The Least Recently Used (LRU) Page Replacement Algorithm
+
+This algorithm works on the observation that pages that have been heavily used
+in the last few instructions are likely to be used again soon. Conversely, pages
+that have not been used in a long time are likely to remain unused for a long time.
+
+LRU is theoretically possible, although very expensive. It requires a linked list
+of every page in memory, with the most recently used page at the front and the
+least recently used page at the rear. This list must be updated on every memory
+reference. Finding a page in the list, deleting it, and then moving it to the front
+is a very expensive and time consuming operation.
+
+### The WSClock Page Replacement Algorithm
+
+Due to its simplicity and performance, this is widely used in practice.
+
+The data structure used is a circular list of page frames. Initially, this list
+is empty. When a page is loaded, it is added to the list. As more are added, they
+go into the list to form a ring. Each entry contains the _time of last use_ field
+and an `R` and `M` bit.
+
+At each page fault the page pointed to by the hand is examined first. If the `R` bit is
+set to 1, the page has been used during the current tick so it is not an ideal candidate
+to remove. The `R` bit is then set to 0, and the hand advances to the next page.
+
+If the page has `R` = 0 and the age is greater than $\uptau$ and the page is clean,
+it is not in the working set and a valid copy exists on disk, the page frame is simply
+claimed and the new page is put there. If the page is dirty, it cannot be claimed
+since no valid copy is present on disk. To avoid a process switch, the write to disk
+is scheduled, but the hand is advanced and the algorithm continues with the next page.
+After all, there might be an old, clean page further down the line that can be used
+immediately.
+
+If the hand comes all the way around to its starting point there are two cases we
+must consider:
+
+1. At least one write has been scheduled.
+2. No writes have been scheduled.
+
+In the first case, the hand just keeps moving, looking for a clean page. Since one or more
+writes have been scheduled, eventually some write will complete and its page will be marked
+as clean. The first clean page encountered is evicted. This page is not necessarily
+the first write scheduled because the disk driver may reorder writes to optimise disk
+performance.
+
+In the second case, all pages are in the working set, otherwise at least one write
+would have been scheduled. The simplest thing to do is claim any clean page and use it.
+The location of the page could be kept track of during the sweep. If no clean pages
+exist, then the current page is chosen.
