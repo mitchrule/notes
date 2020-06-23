@@ -114,3 +114,39 @@ be done on every memory reference, not just page faults.
 The way out of this dilemma is to make use of the TLB. If the TLB can hold all of the
 heavily used pages, translation can happen just as fast as with regular page tables.
 On a TLB miss, however, the inverted page table has to be searched in software.
+
+### Page Replacement Algorithms
+
+When a page fault occurs, the operating system has to chhose a page to evict from
+memory to make room for the incoming page. If the page to be removed has been modified,
+it must be rewritten to disk to bring the disk copy up to date.
+
+#### The Optimal Page Replacement Algorithm
+
+The best possible page replacement algorithm is impossible to actually implement.
+
+When a page fault occurs, we have a set of pages in memory, one of which needs to
+be removed to make room for the incoming page. Each page in this set will be referenced
+at some point in the future. The optimal page replacement algorithm evicts the page
+that will be referenced last out of all of the pages in the set. This effectively
+pushes the next page fault as far back into the future as possible.
+
+In reality, this cannot be achieved because we have no way of telling how long it will
+be before a page is referenced again.
+
+#### The Not Recently Used Page Replacement Algorithm
+
+Each page in memory has an `R` bit and an `M` bit. Both default set to 0.
+When a page is referenced, its `R` bit is set to 1. When a page is modified,
+its `M` bit is set to 1.
+
+When a page fault occurs, the operating system sorts pages into four classes:
+
+0. not referenced, not modified.
+1. not referenced, modified.
+2. referenced, not modified.
+3. referenced, modified.
+
+The algorithm removes a page at random from the lowest numbered non-empty class.
+
+#### The Least Recently Used (LRU) Page Replacement Algorithm
