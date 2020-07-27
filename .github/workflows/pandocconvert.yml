@@ -48,7 +48,7 @@ jobs:
           name: IT_Project
           path: IT_Project_Output
           
-  mdoelsofcomp:
+  modelsofcomp:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
