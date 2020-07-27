@@ -32,3 +32,33 @@ jobs:
         with:
           name: Information_Security_and_Privacy
           path: Information_Security_and_Privacy_Output
+
+  itproj:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          mkdir IT_Project_Output  # create output dir
+          echo "::set-env name=FILELIST::$(printf '"%s" ' IT_Project/*.md)"
+      - uses: docker://pandoc/latex:2.9
+        with:
+          args: --output=IT_Project_Output/notes.pdf ${{ env.FILELIST }} --toc
+      - uses: actions/upload-artifact@master
+        with:
+          name: IT_Project
+          path: IT_Project_Output
+          
+  mdoelsofcomp:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          mkdir Models_of_Computation_Output  # create output dir
+          echo "::set-env name=FILELIST::$(printf '"%s" ' Models_of_Computation/*.md)"
+      - uses: docker://pandoc/latex:2.9
+        with:
+          args: --output=Models_of_Computation_Output/notes.pdf ${{ env.FILELIST }} --toc
+      - uses: actions/upload-artifact@master
+        with:
+          name: Models_of_Computation
+          path: Models_of_Computation_Output
