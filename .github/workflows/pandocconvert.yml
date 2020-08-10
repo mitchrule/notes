@@ -42,7 +42,7 @@ jobs:
           echo "::set-env name=FILELIST::$(printf '"%s" ' IT_Project/*.md)"
       - uses: docker://pandoc/latex:2.9
         with:
-          args: --output=IT_Project_Output/notes.pdf ${{ env.FILELIST }} --toc --columns=2
+          args: --output=IT_Project_Output/notes.pdf ${{ env.FILELIST }} --toc
       - uses: actions/upload-artifact@master
         with:
           name: IT_Project
