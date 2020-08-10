@@ -37,7 +37,7 @@ Stages of software development were done sequentially. Requirements -> Design ->
 
 - Appreciate that most of us have little background.
 - Standups weekly.
-- Sprints: $ 3 \times 3 $ weeks
+- Sprints: 3 X 3 weeks
 - Dynamically consider scope each sprint.
 - Flexible.
 - Lightweight.
