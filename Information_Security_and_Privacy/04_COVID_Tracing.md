@@ -20,3 +20,8 @@
   - Is this being handled by a separate entity.
   - Details could simply be written on a piece of paper for everyone to see.
 - This data is then handled the same way as before, being centralised or decentralised.
+
+# Australian Contact Tracing
+
+The COVIDSafe app was intentionally misleading by the Australian Government. Published media stated that only high risk interactions for longer than 15 minutes would be recorded and sent to the central server.
+In reality, every single interaction, high risk or not, was sent to the central server.
