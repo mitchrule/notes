@@ -42,3 +42,42 @@ $\forall x (F_1 \land F_2) \equiv (\forall x F_1) \land (\forall x F_2)$
 4. Eliminate existential quantifiers (Skolemize).
 5. Eliminiate universal quantifiers (just remove them).
 6. Bring to CNF (using distributive laws).
+
+# Unification
+
+## Most General Unifiers
+
+A unifier of two tersm $s$ and $t$ is a substitution $\theta$ such that $\theta (s) = \theta (t)$.
+
+The terms $s$ and $t$ are unifiable iff there exists a unifier for $s$ and $t$.
+
+A most general unified (mgu) for $s$ and $t$ is a substitution $\theta$ such that
+
+- $\theta$ is a unifier for $s$ and $t$
+- every other unifier $\tau$ of $s$ and $t$ can be expressed as $\tau \circ \theta$ for some substitution.
+
+### Unifier Examples
+
+- $P(x,a)$ and $P(b,c)$ are not unifiable.
+- $P(x,c)$ and $P(a,y)$ are unifiable using $\{x \mapsto a, y \mapsto c\}$
+
+## Unification Algorithm
+
+1. $F(s_1,...,s_n) = F(t_1,...,t_n)$
+   1. Replace the equation by the $n$ equations $s_1 = t_1,...,s_n=t_n$
+2. $F(s_1,...,s_n)=G(t_1,...,t_m)$ where $F \ne G$ or $n\ne m$
+   1. Halt, returning failure.
+3. $x=x$
+   1. Delete the equation.
+4. $t=x$ where $t$ is not a variable
+   1. Replace the equation by $x=t$.
+5. $x=t$ where $t$ is not $x$ but $x$ occurs in $t$
+   1. Halt, returning failure.
+6. $x=t$ where $t$ contains no $x$ but $x$ occurs in other equations
+   1. Replace $x$ by $t$ in those other equations.
+
+### Unification Example
+
+Starting from $f(h(y),g(y,a),z) = f(x,g(v,v),b)$
+
+We can use the substitution $\theta = \{x\mapsto h(a), y \mapsto a, v \mapsto a, z \mapsto b \}$
