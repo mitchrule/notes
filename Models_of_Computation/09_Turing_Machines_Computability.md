@@ -1,4 +1,4 @@
-# Turing Machines
+<!-- # Turing Machines
 
 A Turing machine has an unbounded tape through which it takes its unput and performs its computations.
 
@@ -32,4 +32,4 @@ It consists of three actions
 
 - Change state to $q_j$
 - Overwrite tape symbol $x$ by $y$
-- Move the tape head in direction $d$
+- Move the tape head in direction $d$ -->
