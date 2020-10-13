@@ -23,7 +23,7 @@ _A Turing machine does not have to consume all of its input to finish in the acc
 
 ## Transition Function
 
-A transition $\delta(q_i,x)=(q_j,y,d)$ depends on two things
+A transition $\delta (q_i,x)=(q_j,y,d)$ depends on two things
 
 - Current state $q_i$
 - Currect symbol $x$ under the tape head
