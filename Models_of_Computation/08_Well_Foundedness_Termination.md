@@ -20,7 +20,7 @@ The binary relation $\prec$ over some set $X$ is well founded iff there is no in
 
 We say that $(X, \prec)$ is a well founded structure.
 
-For example, $( \N, <)$ is a well founded structure.
+For example, $($Natural numbers$, <)$ is a well founded structure.
 
 ### Lexicographic Ordering of Tuples
 
