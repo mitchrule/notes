@@ -21,6 +21,8 @@ A Turing machine is a 7-tuple which consists of:
 
 _A Turing machine does not have to consume all of its input to finish in the accept state._
 
+If all strings in a language halt a Turing machine, that language is decidable.
+
 ## Transition Function
 
 A transition $\delta (q_i,x)=(q_j,y,d)$ depends on two things
